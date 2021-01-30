@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  worker:
+    image: detection_dls
+    #build: .
+    restart: always
+    #command: tail -f /dev/null
+    environment:
+      - PYTHONUNBUFFERED=1
+      - REDIS_HOST=redis
+      - IS_DEBUG=False
+      - VOLUME_SRC=/data/
+      - MEDIA_SRC=/data/
+    volumes:
+      - /home/krendel/python/DjangoDLS:/data/
+    depends_on:
+      - redis
+  redis:
+    image: redis:latest
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    restart: always
+    ports:
+    - 6379:6379

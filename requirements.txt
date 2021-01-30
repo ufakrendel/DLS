@@ -1,0 +1,4 @@
+scikit-image
+torchvision
+torch
+redis
